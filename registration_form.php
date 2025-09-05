@@ -33,11 +33,14 @@ if(isset($_POST['submit'])) {
     $degree      = $_POST['degree'];
     $prev_degree = $_POST['prev_degree'];
     $prev_clg    = $_POST['prev_clg'];
+    $city        = $_POST['city'];
+    $state       = $_POST['state'];
     $mo_no       = $_POST['mo_no'];
     $hostel      = isset($_POST['hostel']) ? 1 : 0;
 
-    $sql = "INSERT INTO students (name, enroll_no, degree, prev_degree, prev_clg, mo_no, hostel) 
-            VALUES ('$name', '$enroll_no', '$degree', '$prev_degree', '$prev_clg', '$mo_no', '$hostel')";
+    $sql = "INSERT INTO $tablename 
+        (name, enroll_no, degree, prev_degree, prev_clg, city, state, mo_no, hostel) 
+        VALUES ('$name', '$enroll_no', '$degree', '$prev_degree', '$prev_clg', '$city', '$state', '$mo_no', '$hostel')";
 
     try {
         if ($conn->query($sql) === TRUE) {
@@ -63,6 +66,8 @@ if(isset($_POST['update'])){
     $degree = $_POST['degree'];
     $prev_degree = $_POST['prev_degree'];
     $prev_clg = $_POST['prev_clg'];
+    $city = $_POST['city'];
+    $state = $_POST['state'];
     $mo_no = $_POST['mo_no'];
     $hostel = isset($_POST['hostel']) ? 1 : 0;
 
@@ -72,8 +77,10 @@ if(isset($_POST['update'])){
         degree='$degree', 
         prev_degree='$prev_degree', 
         prev_clg='$prev_clg', 
+        city='$city',
+        state='$state',
         mo_no='$mo_no', 
-        hostel='$hostel' 
+        hostel='$hostel'
         WHERE id=$id";
 
     if(mysqli_query($conn, $update_sql)){
@@ -149,6 +156,23 @@ if(isset($_POST['update'])){
            placeholder=" " required>
     <label>Previous School</label>
   </div>
+
+  <div class="form-group">
+  <i>🌆</i>
+  <input type="text" name="city" 
+         value="<?php echo isset($row['city']) ? htmlspecialchars($row['city']) : ''; ?>" 
+         placeholder=" " required>
+  <label>City</label>
+</div>
+
+<div class="form-group">
+  <i>🗺️</i>
+  <input type="text" name="state" 
+         value="<?php echo isset($row['state']) ? htmlspecialchars($row['state']) : ''; ?>" 
+         placeholder=" " required>
+  <label>State</label>
+</div>
+
 
   <div class="form-group">
     <i>📞</i>
